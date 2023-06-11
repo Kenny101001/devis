@@ -4,6 +4,7 @@ include("../function/connexion.php");
 include("../function/function.php");
 
 $id = $_GET['idClient'];
+$nomClient = $_GET['nomClient'];
 
 if (isset($_GET['idClient']) && !isset($_GET['nbDevis'])) {
     $executAchat = getAchatPDF($id);
@@ -13,7 +14,6 @@ if (isset($_GET['nbDevis'])) {
     $nbDevis = $_GET['nbDevis'];
     $executAchat = getAchatHistoPDF($id,$nbDevis);
 }
-
 
 class PDF extends FPDF
 {
@@ -52,7 +52,7 @@ function Footer()
     $this->Cell(0,10,'Page '.$this->PageNo().'/{nb}',0,0,'C');
 }
 private $data;
-function LoadData($file)
+function LoadData()
 {
     // Lecture des lignes du fichier
     $data = array();
@@ -71,21 +71,24 @@ function ImprovedTable($header, $data)
     // Données
     foreach($data as $row)
     {
-        $this->Cell($w[0],6,$row[0]);
-        // $this->Cell($w[1],6,$row[1]);
-        // $this->Cell($w[2],6,$row[2]);
-        // $this->Cell($w[3],6,$row[3]);
+        $this->Cell($w[0],10,$row[0]);
+        $this->Cell($w[1],10,$row[1]);
+        $this->Cell($w[2],10,$row[2]);
+        $this->Cell($w[3],10,$row[3]);
         $this->Ln();
+        
     }
     // Trait de terminaison
-    $this->Cell(array_sum($w),0,'','T');
+    $this->Cell(30,40,'Total : '. $_GET['sum'].'  Ariary' ,0,0,'B');
+
+    // $this->Cell(array_sum($w),0,'','T');
 }
 
 }
 $labels = array(
     'Date de : ',
-    'Nom : RAKOTO Jean',
-    'Facture n  :',
+    'Nom du client : '. $nomClient,
+    'Facture n  : ' .$id,
 );
 $data = $executAchat;
 
@@ -106,8 +109,6 @@ $header = array('Achat', 'Quantite', 'Prix', 'Total');
 $pdf->LoadData($data);
 $pdf->SetFont('Times','',12);
 $pdf->ImprovedTable($header,$data);
-$header = array('', 'Semestre 1', '30', 'Note/20', 'Resultat');
-
 
 $pdf->Output();
 ?>

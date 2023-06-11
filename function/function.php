@@ -190,14 +190,30 @@ function getAchatPDF($id)
 {
     include("../function/connexion.php");
 
-    $sql = "SELECT * FROM `Achat` where id_client = %d ";
+    $sql = "select achat ,quantité ,prix, prix*quantité from achat where id_client = %d";
     $sql = sprintf($sql, $id);
 
     $execut = mysqli_query($bdd, $sql);
+    $result = array();
+    while ($data = mysqli_fetch_array($execut)) {
+        $result[] = $data;
+    }
+    mysqli_free_result($execut);
+    return $result;
+}
+function getClientNom($id)
+{
+    include("function/connexion.php");
 
-    $donnee = mysqli_fetch_assoc($execut);
+    $sql = "SELECT * FROM `client` where id_client = %d";
+    $sql = sprintf($sql, $id);
 
-    return $donnee;
+    $execut = mysqli_query($bdd, $sql);
+    while ($data = mysqli_fetch_assoc($execut)) {
+        $nom = $data['nom'];
+    }
+    mysqli_free_result($execut);
+    return $nom;
 }
 
 function getAchatHistoPDF($id, $nbDevis)
@@ -228,4 +244,19 @@ function getPrixmois()
 
 }
 
+function sumProduitClient($id)
+{
+    include("function/connexion.php");
+
+
+    $sql = "select SUM(prix*quantité) as sum from achat where id_client = %d";
+    $sql = sprintf($sql, $id);
+
+    $execut = mysqli_query($bdd, $sql);
+    while ($data = mysqli_fetch_assoc($execut)) {
+        $sum = $data['sum'];
+    }
+    mysqli_free_result($execut);
+    return $sum;
+}
 ?>
