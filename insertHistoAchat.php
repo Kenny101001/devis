@@ -1,12 +1,14 @@
-<?php
+<?php 
 include("function/connexion.php");
 include("function/function.php");
 
-if (isset($_GET['insert'])) {
+if (isset($_GET['validerAchat'])) {
 
+	$idClient = $_GET['idClient'];
 	$nbDevis = $_GET['nbDevis'];
+	$nom = $_GET['nom'];
 
-	insertAchat($_GET['idClient'],$_GET['achat'],$_GET['quantité'],$_GET['prix'],$nbDevis);
+	ValidationAchat($idClient, $nom, $nbDevis);
 
 }
 

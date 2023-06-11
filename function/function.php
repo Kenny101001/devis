@@ -51,6 +51,19 @@ function insertAchat($id, $achat,$quantite,$prix, $nbDevis)
 
     return $execut;   
 }
+function updateNbDevis($idClient,$nbDevis){
+
+    include("function/connexion.php");
+
+    $sql = "UPDATE `client` SET `nb_devis`= %d WHERE id_client = %d ";
+    $sql = sprintf($sql,$nbDevis, $idClient);
+
+    $execut = mysqli_query($bdd, $sql);
+
+    // $donnee = mysqli_fetch_assoc($execut);
+
+    return $execut;   
+}
 
 function getAchat($id)
 {
@@ -110,9 +123,11 @@ function getAchatHisto($id, $nbDevis)
 
 function insertHistorique($idClient,$designation,$nbDevis)
 {
+    include("function/connexion.php");
+
     $sql = "INSERT INTO `historique`(`id_client`, `designation`, `nb_devis`) VALUES ( %d,'%s',%d)";
 
-    $sql = sprintf($sql, $id, $designation,$nbDevis);
+    $sql = sprintf($sql, $idClient, $designation,$nbDevis);
 
     $execut = mysqli_query($bdd, $sql);
 
@@ -139,7 +154,7 @@ function ValidationAchat($idClient,$designation, $nbDevis)
 {
     include("function/connexion.php");
 
-    $executAchat = getAchat($id);
+    $executAchat = getAchat($idClient);
 
     while($donneAchat = mysqli_fetch_assoc($executAchat))
     {
@@ -147,6 +162,9 @@ function ValidationAchat($idClient,$designation, $nbDevis)
     }
 
     insertHistorique($idClient,$designation,$nbDevis);
+
+    $nbDevis += 1;
+    updateNbDevis($nbDevis, $idClient);
 
     deleteAchat($idClient);
 }

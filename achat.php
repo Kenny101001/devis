@@ -17,6 +17,9 @@ if (isset($_GET['idClientHisto'])) {
 	$executAchatHisto = getAchatHisto($id,$nbDevis);
 }
 
+$executInfo = getClientInfo($id);
+$donneInfo = mysqli_fetch_assoc($executInfo);
+
 $totalGlobal = 0;
 
 ?>
@@ -193,6 +196,7 @@ $totalGlobal = 0;
 				<label>Prix</label>
 				<input type="number" name="prix" min="0" value="1">
 				<input type="hidden" name="idClient" value="<?php echo $id ?>">
+				<input type="hidden" name="nbDevis" value="<?php echo $donneInfo['nb_devis'] ?>">
 				<input type="submit" name="insert">
 			</form>
 		</div>
@@ -204,6 +208,8 @@ $totalGlobal = 0;
 	<br>
 	<a href="fpdf/index.php?idClient=<?php echo $id; ?>">Télécharger PDF</a>
 	<div class="liste_achat">
+
+		
 		<table border="1">
 			<tr>
 				<th>Designation</th>
@@ -216,7 +222,7 @@ $totalGlobal = 0;
 			if (isset($_GET['idClient'])) {
 				while($donneAchat = mysqli_fetch_assoc($executAchat)){ ?>
 					<tr>
-						<td><?php echo $donneAchat['achat'] ?></td>
+						<td><input type="textfield" name="achat" value="<?php echo $donneAchat['achat'] ?>"></td>
 						<td><?php echo $donneAchat['quantité'] ?></td>
 						<td><?php echo $donneAchat['prix'] ?></td>
 						<td><?php echo $total = ($donneAchat['quantité']*$donneAchat['prix']) ?></td>
@@ -224,9 +230,28 @@ $totalGlobal = 0;
 
 					<?php $totalGlobal += $total; ?>
 
+					<?php
+					$achat = array();
+					$quantite = array();
+					$prix = array();
 
-			<?php } 
-			} ?>
+					$achat[] = $donneAchat['achat'];
+					$quantite[] = $donneAchat['quantité'];
+					$prix[] = $donneAchat['prix'];
+					?>
+
+
+			<?php } ?>
+
+			<br>
+			<form action="insertHistoAchat.php" method="GET">
+			<input type="text" name="nom" placeholder="Nom de l'achat">
+			<input type="hidden" name="idClient" value="<?php echo $donneInfo['id_client'] ?>">
+			<input type="hidden" name="nbDevis" value="<?php echo $donneInfo['nb_devis'] ?>">
+			<input type="submit" name="validerAchat" value="Valider l'achat">
+			</form>
+
+			<?php } ?>
 
 
 			<?php
@@ -242,16 +267,17 @@ $totalGlobal = 0;
 
 					<?php $totalGlobal += $total; ?>
 
-					<p>hello histo achat</p>
-
 			<?php } 
 			} ?>
+
 
 			<tr>
 				<td colspan="3">Total</td>
 				<td><?php echo $totalGlobal; ?></td>
 			</tr>
 		</table>
+
+		
 	</div>
 
 </body>
