@@ -37,20 +37,19 @@ function Footer()
     // Numéro de page
     $this->Cell(0,10,'Page '.$this->PageNo().'/{nb}',0,0,'C');
 }
+private $data;
 function LoadData($file)
 {
     // Lecture des lignes du fichier
-    $lines = file($file);
     $data = array();
-    foreach($lines as $line)
-        $data[] = explode(';',trim($line));
+    $this->data = $data;
     return $data;
 }
 // Tableau amélioré
 function ImprovedTable($header, $data)
 {
     // Largeurs des colonnes
-    $w = array(20, 85, 30, 40, 20);
+    $w = array(50, 40, 40, 40, 40);
     // En-tête
     for($i=0;$i<count($header);$i++)
         $this->Cell($w[$i],7,$header[$i],0,0);
@@ -65,14 +64,19 @@ function ImprovedTable($header, $data)
         $this->Ln();
     }
     // Trait de terminaison
-    // $this->Cell(array_sum($w),0,'','T');
+    $this->Cell(array_sum($w),0,'','T');
 }
 
 }
 $labels = array(
-    'Date de : ' ,
+    'Date de : ',
     'Nom : RAKOTO Jean',
     'Facture n  :',
+);
+$data = array(
+    array('Produit 1', '5', '10', '50'),
+    array('Produit 2', '3', '15', '45'),
+    // ...
 );
 // Instanciation de la classe dérivée
 $pdf = new PDF();
@@ -88,7 +92,7 @@ $pdf->Ln(10);
 
 $header = array('Achat', 'Quantite', 'Prix', 'Total');
 // Chargement des données
-$data = $pdf->LoadData('donnees.txt');
+$pdf->LoadData($data);
 $pdf->SetFont('Times','',12);
 $pdf->ImprovedTable($header,$data);
 $header = array('', 'Semestre 1', '30', 'Note/20', 'Resultat');

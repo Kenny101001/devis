@@ -30,7 +30,7 @@ $totalGlobal = 0;
 
 <style type="text/css">
 	body {
-			font-family: monospace;, sans-serif;
+			font-family: monospace, sans-serif;
 		}
 
 		h1 {
@@ -202,7 +202,7 @@ $totalGlobal = 0;
 	<a href="index.php">Retour</a>
 	<br>
 	<br>
-	<a href="fpdf/index.php">Télécharger PDF</a>
+	<a href="fpdf/index.php?idClient=<?php echo $id; ?>">Télécharger PDF</a>
 	<div class="liste_achat">
 		<table border="1">
 			<tr>
