@@ -169,6 +169,20 @@ function ValidationAchat($idClient,$designation, $nbDevis)
     deleteAchat($idClient);
 }
 
+function getHistoriquePrix($idClient, $nbDevis)
+{
+    include("function/connexion.php");
+
+    $sql = "SELECT * FROM `AchatHistorique` where id_client = %d And nb_devis = %d";
+    $sql = sprintf($sql, $idClient, $nbDevis);
+
+    $execut = mysqli_query($bdd, $sql);
+
+    // $donnee = mysqli_fetch_assoc($execut);
+
+    return $execut;
+}
+
 function getAchatPDF($id)
 {
     include("../function/connexion.php");

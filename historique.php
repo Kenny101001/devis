@@ -12,6 +12,8 @@ if (isset($_GET['idClient'])) {
 	$donneInfo = mysqli_fetch_assoc($executInfo);
 }
 
+$prixTotalDevis = 0;
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -87,8 +89,19 @@ if (isset($_GET['idClient'])) {
 
 					<li><a href="achat.php?idClientHisto=<?php echo $donneHisto["id_client"] ?>&idHisto=<?php echo $donneHisto["id_historique"]?>&nbDevis=<?php echo $donneHisto["nb_devis"] ?>"> <?php echo $donneHisto["designation"]?> </a></li>
 
+					<?php 
+					$executPrixDevis = getHistoriquePrix($donneHisto["id_client"], $donneHisto["nb_devis"]);
+
+					while($donnePrixDevis = mysqli_fetch_assoc($executPrixDevis)){
+						$prixTotalDevis +=
+					} ?>
+
+					<li>Pris total : <?php  echo $prixTotalDevis ?></li>
+
+
 					<p><?php echo $donneHisto["date"]?></p>
 
+					<?php $prixTotalDevis= 0; ?>
 			<?php	}
 			}
 			?>
