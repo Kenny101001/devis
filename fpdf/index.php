@@ -4,6 +4,7 @@ include("../function/connexion.php");
 include("../function/function.php");
 
 $id = $_GET['idClient'];
+$nomClient = $_GET['nomClient'];
 $executAchat = getAchatPDF($id);
 
 class PDF extends FPDF
@@ -63,20 +64,21 @@ function ImprovedTable($header, $data)
     foreach($data as $row)
     {
         $this->Cell($w[0],6,$row[0]);
-        // $this->Cell($w[1],6,$row[1]);
-        // $this->Cell($w[2],6,$row[2]);
-        // $this->Cell($w[3],6,$row[3]);
+        $this->Cell($w[1],6,$row[1]);
+        $this->Cell($w[2],6,$row[2]);
+        $this->Cell($w[3],6,$row[3]);
         $this->Ln();
     }
     // Trait de terminaison
     $this->Cell(array_sum($w),0,'','T');
+    $this->Cell(30,40,'Total',0,0,'C');
 }
 
 }
 $labels = array(
     'Date de : ',
-    'Nom : RAKOTO Jean',
-    'Facture n  :',
+    'Nom : '. $nomClient,
+    'Facture n  : ' .$id,
 );
 $data = $executAchat;
 
@@ -97,8 +99,6 @@ $header = array('Achat', 'Quantite', 'Prix', 'Total');
 $pdf->LoadData($data);
 $pdf->SetFont('Times','',12);
 $pdf->ImprovedTable($header,$data);
-$header = array('', 'Semestre 1', '30', 'Note/20', 'Resultat');
-
 
 $pdf->Output();
 ?>

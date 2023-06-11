@@ -187,7 +187,7 @@ function getAchatPDF($id)
 {
     include("../function/connexion.php");
 
-    $sql = "SELECT * FROM `Achat` where id_client = %d ";
+    $sql = "select achat ,quantité ,prix, prix*quantité from achat where id_client = %d";
     $sql = sprintf($sql, $id);
 
     $execut = mysqli_query($bdd, $sql);
@@ -198,6 +198,19 @@ function getAchatPDF($id)
     mysqli_free_result($execut);
     return $result;
 }
+function getClientNom($id)
+{
+    include("function/connexion.php");
 
+    $sql = "SELECT * FROM `client` where id_client = %d";
+    $sql = sprintf($sql, $id);
+
+    $execut = mysqli_query($bdd, $sql);
+    while ($data = mysqli_fetch_assoc($execut)) {
+        $nom = $data['nom'];
+    }
+    mysqli_free_result($execut);
+    return $nom;
+}
 
 ?>
