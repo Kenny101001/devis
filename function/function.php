@@ -52,6 +52,20 @@ function getAchat($id)
     return $execut;
 }
 
+function getAchatPDF($id)
+{
+    include("../function/connexion.php");
+
+    $sql = "SELECT * FROM `Achat` where id_client = %d ";
+    $sql = sprintf($sql, $id);
+
+    $execut = mysqli_query($bdd, $sql);
+
+    $donnee = mysqli_fetch_assoc($execut);
+
+    return $donnee;
+}
+
 ////////////
 function selectSecteur()
 {

@@ -1,5 +1,10 @@
 <?php
 require('fpdf.php');
+include("../function/connexion.php");
+include("../function/function.php");
+
+$id = $_GET['idClient'];
+$executAchat = getAchatPDF($id);
 
 class PDF extends FPDF
 {
@@ -58,9 +63,9 @@ function ImprovedTable($header, $data)
     foreach($data as $row)
     {
         $this->Cell($w[0],6,$row[0]);
-        $this->Cell($w[1],6,$row[1]);
-        $this->Cell($w[2],6,$row[2]);
-        $this->Cell($w[3],6,$row[3]);
+        // $this->Cell($w[1],6,$row[1]);
+        // $this->Cell($w[2],6,$row[2]);
+        // $this->Cell($w[3],6,$row[3]);
         $this->Ln();
     }
     // Trait de terminaison
@@ -73,11 +78,8 @@ $labels = array(
     'Nom : RAKOTO Jean',
     'Facture n  :',
 );
-$data = array(
-    array('Produit 1', '5', '10', '50'),
-    array('Produit 2', '3', '15', '45'),
-    // ...
-);
+$data = $executAchat;
+
 // Instanciation de la classe dérivée
 $pdf = new PDF();
 $pdf->AliasNbPages();
