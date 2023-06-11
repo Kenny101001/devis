@@ -14,6 +14,8 @@ if (isset($_GET['idClient'])) {
 
 $prixTotalDevis = 0;
 
+$prixTotalDevisGlobal = 0;
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -93,7 +95,9 @@ $prixTotalDevis = 0;
 					$executPrixDevis = getHistoriquePrix($donneHisto["id_client"], $donneHisto["nb_devis"]);
 
 					while($donnePrixDevis = mysqli_fetch_assoc($executPrixDevis)){
-						$prixTotalDevis +=
+						$prixTotalDevis += ($donnePrixDevis['prix']*$donnePrixDevis['quantité']);
+
+						$prixTotalDevisGlobal += ($donnePrixDevis['prix']*$donnePrixDevis['quantité']);
 					} ?>
 
 					<li>Pris total : <?php  echo $prixTotalDevis ?></li>
@@ -107,6 +111,12 @@ $prixTotalDevis = 0;
 			?>
 			
 		</ul>
+		
+		<div>
+			<ul>
+				<li><p style="font-weight: bold";>total de tout les achats : <?php echo $prixTotalDevisGlobal ?></p></li>
+			</ul>
+		</div>
 	</div>
 </body>
 </html>
