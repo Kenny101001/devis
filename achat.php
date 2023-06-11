@@ -202,7 +202,7 @@ $totalGlobal = 0;
 	<a href="index.php">Retour</a>
 	<br>
 	<br>
-	<a href="">Télécharger PDF</a>
+	<a href="fpdf/index.php">Télécharger PDF</a>
 	<div class="liste_achat">
 		<table border="1">
 			<tr>

@@ -1,0 +1,7 @@
+INF401;Base de donees d'entreprises;6;11;P
+INF402;Structure de donnee avancees;3;11;P
+INF403;Programmation web avance;6;12,00;AB
+INF404;Interface graphique client lourds;3;8;null
+INF405;Design Pattern;6;10,00;P
+INF406;Service;null;null;null
+INF407;Recherche operationnelle;3;8;null
