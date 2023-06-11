@@ -63,21 +63,23 @@ function ImprovedTable($header, $data)
     // Données
     foreach($data as $row)
     {
-        $this->Cell($w[0],6,$row[0]);
-        $this->Cell($w[1],6,$row[1]);
-        $this->Cell($w[2],6,$row[2]);
-        $this->Cell($w[3],6,$row[3]);
+        $this->Cell($w[0],10,$row[0]);
+        $this->Cell($w[1],10,$row[1]);
+        $this->Cell($w[2],10,$row[2]);
+        $this->Cell($w[3],10,$row[3]);
         $this->Ln();
+        
     }
     // Trait de terminaison
+    $this->Cell(30,40,'Total',0,0,'B');
+
     $this->Cell(array_sum($w),0,'','T');
-    $this->Cell(30,40,'Total',0,0,'C');
 }
 
 }
 $labels = array(
     'Date de : ',
-    'Nom : '. $nomClient,
+    'Nom du client : '. $nomClient,
     'Facture n  : ' .$id,
 );
 $data = $executAchat;
