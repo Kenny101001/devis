@@ -16,6 +16,7 @@ if (isset($_GET['idClientHisto'])) {
 
 	$executAchatHisto = getAchatHisto($id,$nbDevis);
 }
+
 $nomClient = getClientNom($id);
 $executInfo = getClientInfo($id);
 $donneInfo = mysqli_fetch_assoc($executInfo);
@@ -202,11 +203,11 @@ $totalGlobal = 0;
 		</div>
 	<?php }
 	?>
-	
+	<?php $sommetotale=sumProduitClient($id); ?>
 	<a href="index.php">Retour</a>
 	<br>
 	<br>
-	<a href="fpdf/index.php?idClient=<?php echo $id; ?>&nomClient=<?php echo $nomClient; ?>">Télécharger PDF</a>
+	<a href="fpdf/index.php?idClient=<?php echo $id; ?>&nomClient=<?php echo $nomClient; ?>&sum=<?php echo $sommetotale; ?>">Télécharger PDF</a>
 	<div class="liste_achat">
 
 		

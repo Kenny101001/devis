@@ -71,9 +71,9 @@ function ImprovedTable($header, $data)
         
     }
     // Trait de terminaison
-    $this->Cell(30,40,'Total',0,0,'B');
+    $this->Cell(30,40,'Total : '. $_GET['sum'].'  Ariary' ,0,0,'B');
 
-    $this->Cell(array_sum($w),0,'','T');
+    // $this->Cell(array_sum($w),0,'','T');
 }
 
 }

@@ -213,4 +213,18 @@ function getClientNom($id)
     return $nom;
 }
 
+function sumProduitClient($id)
+{
+    include("function/connexion.php");
+
+    $sql = "select SUM(prix*quantité) as sum from achat where id_client = %d";
+    $sql = sprintf($sql, $id);
+
+    $execut = mysqli_query($bdd, $sql);
+    while ($data = mysqli_fetch_assoc($execut)) {
+        $sum = $data['sum'];
+    }
+    mysqli_free_result($execut);
+    return $sum;
+}
 ?>
