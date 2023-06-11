@@ -1,3 +1,15 @@
+<?php 
+include("function/connexion.php");
+include("function/function.php");
+
+if (isset($_GET['idClient'])) {
+
+	$id = $_GET['idClient'];
+
+	$executHisto = getHisorique($id);
+}
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,9 +77,19 @@
 
 	<div>
 		<ul>
-			<li>historique 1</li>
-			<li>historique 2</li>
-			<li>historique 3</li>
+			<?php 
+			if (isset($id)) {
+				while($donneHisto = mysqli_fetch_assoc($executHisto))
+				{ ?>
+
+					<li><a href="historique?idHisto=<?php echo $donneHisto["id_historique"] ?>"> <?php echo $donneHisto["designation"]?> </a> </li>
+					
+					<p><?php echo $donneHisto["date"]?></p>
+
+			<?php	}
+			}
+			?>
+			
 		</ul>
 	</div>
 </body>
