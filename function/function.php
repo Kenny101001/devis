@@ -191,10 +191,12 @@ function getAchatPDF($id)
     $sql = sprintf($sql, $id);
 
     $execut = mysqli_query($bdd, $sql);
-
-    $donnee = mysqli_fetch_assoc($execut);
-
-    return $donnee;
+    $result = array();
+    while ($data = mysqli_fetch_array($execut)) {
+        $result[] = $data;
+    }
+    mysqli_free_result($execut);
+    return $result;
 }
 
 
