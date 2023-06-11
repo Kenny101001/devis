@@ -206,7 +206,16 @@ $totalGlobal = 0;
 	<a href="index.php">Retour</a>
 	<br>
 	<br>
-	<a href="fpdf/index.php?idClient=<?php echo $id; ?>">Télécharger PDF</a>
+
+	<?php
+	if (isset($_GET['idClient'])) { ?>
+		<a href="fpdf/index.php?idClient=<?php echo $id; ?>">Télécharger PDF</a>
+	<?php }
+
+	if (isset($_GET['idClientHisto'])) { ?>
+		<a href="fpdf/index.php?idClient=<?php echo $id; ?>&nbDevis=<?php echo $nbDevis?>">Télécharger PDF</a>
+	<?php } ?>
+	
 	<div class="liste_achat">
 
 		
@@ -216,6 +225,7 @@ $totalGlobal = 0;
 				<th>Quantité</th>
 				<th>Prix</th>
 				<th>Total</th>
+				<th>TVA</th>
 			</tr>
 
 			<?php 
@@ -226,9 +236,10 @@ $totalGlobal = 0;
 						<td><?php echo $donneAchat['quantité'] ?></td>
 						<td><?php echo $donneAchat['prix'] ?></td>
 						<td><?php echo $total = ($donneAchat['quantité']*$donneAchat['prix']) ?></td>
+						<td><?php echo $donneAchat['total_TVA'] ?></td>
 					</tr>
 
-					<?php $totalGlobal += $total; ?>
+					<?php $totalGlobal += $donneAchat['total_TVA']; ?>
 
 					<?php
 					$achat = array();
@@ -245,7 +256,7 @@ $totalGlobal = 0;
 
 			<br>
 			<form action="insertHistoAchat.php" method="GET">
-			<input type="text" name="nom" placeholder="Nom de l'achat">
+			<input type="text" name="nom" placeholder="Nom de l'achat" required>
 			<input type="hidden" name="idClient" value="<?php echo $donneInfo['id_client'] ?>">
 			<input type="hidden" name="nbDevis" value="<?php echo $donneInfo['nb_devis'] ?>">
 			<input type="submit" name="validerAchat" value="Valider l'achat">
@@ -263,16 +274,17 @@ $totalGlobal = 0;
 						<td><?php echo $donneAchat['quantité'] ?></td>
 						<td><?php echo $donneAchat['prix'] ?></td>
 						<td><?php echo $total = ($donneAchat['quantité']*$donneAchat['prix']) ?></td>
+						<td><?php echo $donneAchat['total_TVA'] ?></td>
 					</tr>
 
-					<?php $totalGlobal += $total; ?>
+					<?php $totalGlobal += $donneAchat['total_TVA']; ?>
 
 			<?php } 
 			} ?>
 
 
 			<tr>
-				<td colspan="3">Total</td>
+				<td colspan="4">Total</td>
 				<td><?php echo $totalGlobal; ?></td>
 			</tr>
 		</table>

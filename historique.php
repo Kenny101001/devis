@@ -95,9 +95,9 @@ $prixTotalDevisGlobal = 0;
 					$executPrixDevis = getHistoriquePrix($donneHisto["id_client"], $donneHisto["nb_devis"]);
 
 					while($donnePrixDevis = mysqli_fetch_assoc($executPrixDevis)){
-						$prixTotalDevis += ($donnePrixDevis['prix']*$donnePrixDevis['quantité']);
+						$prixTotalDevis += ($donnePrixDevis['total_TVA']);
 
-						$prixTotalDevisGlobal += ($donnePrixDevis['prix']*$donnePrixDevis['quantité']);
+						$prixTotalDevisGlobal += ($donnePrixDevis['total_TVA']);
 					} ?>
 
 					<li>Pris total : <?php  echo $prixTotalDevis ?></li>
@@ -111,7 +111,6 @@ $prixTotalDevisGlobal = 0;
 			?>
 			
 		</ul>
-		
 		<div>
 			<ul>
 				<li><p style="font-weight: bold";>total de tout les achats : <?php echo $prixTotalDevisGlobal ?></p></li>

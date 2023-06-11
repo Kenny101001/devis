@@ -4,7 +4,16 @@ include("../function/connexion.php");
 include("../function/function.php");
 
 $id = $_GET['idClient'];
-$executAchat = getAchatPDF($id);
+
+if (isset($_GET['idClient']) && !isset($_GET['nbDevis'])) {
+    $executAchat = getAchatPDF($id);
+}
+
+if (isset($_GET['nbDevis'])) {
+    $nbDevis = $_GET['nbDevis'];
+    $executAchat = getAchatHistoPDF($id,$nbDevis);
+}
+
 
 class PDF extends FPDF
 {
