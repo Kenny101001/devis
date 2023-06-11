@@ -5,9 +5,17 @@ include("function/function.php");
 if (isset($_GET['idClient'])) {
 
 	$id = $_GET['idClient'];
+
+	$executAchat = getAchat($id);
 }
 
-$executAchat = getAchat($id);
+if (isset($_GET['idClientHisto'])) {
+
+	$id = $_GET['idClientHisto'];
+	$nbDevis = $_GET['nbDevis'];
+
+	$executAchatHisto = getAchatHisto($id,$nbDevis);
+}
 
 $totalGlobal = 0;
 
@@ -174,18 +182,23 @@ $totalGlobal = 0;
 
 	<h1>Zone D'Achat</h1>
 
-	<div class="formulaire">
-		<form action="insertAchat.php" method="get">
-			<label>Produit</label>
-			<input type="text" name="achat">
-			<label>Quantité</label>
-			<input type="number" name="quantité" min="1" value="1">
-			<label>Prix</label>
-			<input type="number" name="prix" min="0" value="1">
-			<input type="hidden" name="idClient" value="<?php echo $id ?>">
-			<input type="submit" name="insert">
-		</form>
-	</div>
+	<?php 
+	if (isset($_GET['idClient'])) { ?>
+		<div class="formulaire">
+			<form action="insertAchat.php" method="get">
+				<label>Produit</label>
+				<input type="text" name="achat">
+				<label>Quantité</label>
+				<input type="number" name="quantité" min="1" value="1">
+				<label>Prix</label>
+				<input type="number" name="prix" min="0" value="1">
+				<input type="hidden" name="idClient" value="<?php echo $id ?>">
+				<input type="submit" name="insert">
+			</form>
+		</div>
+	<?php }
+	?>
+	
 	<a href="index.php">Retour</a>
 	<br>
 	<br>
@@ -199,17 +212,40 @@ $totalGlobal = 0;
 				<th>Total</th>
 			</tr>
 
-			<?php while($donneAchat = mysqli_fetch_assoc($executAchat)){ ?>
-				<tr>
-					<td><?php echo $donneAchat['achat'] ?></td>
-					<td><?php echo $donneAchat['quantité'] ?></td>
-					<td><?php echo $donneAchat['prix'] ?></td>
-					<td><?php echo $total = ($donneAchat['quantité']*$donneAchat['prix']) ?></td>
-				</tr>
+			<?php 
+			if (isset($_GET['idClient'])) {
+				while($donneAchat = mysqli_fetch_assoc($executAchat)){ ?>
+					<tr>
+						<td><?php echo $donneAchat['achat'] ?></td>
+						<td><?php echo $donneAchat['quantité'] ?></td>
+						<td><?php echo $donneAchat['prix'] ?></td>
+						<td><?php echo $total = ($donneAchat['quantité']*$donneAchat['prix']) ?></td>
+					</tr>
 
-				<?php $totalGlobal += $total; ?>
+					<?php $totalGlobal += $total; ?>
 
-			<?php } ?>
+
+			<?php } 
+			} ?>
+
+
+			<?php
+			if (isset($_GET['idClientHisto'])) {
+
+				while($donneAchat = mysqli_fetch_assoc($executAchatHisto)){ ?>
+					<tr>
+						<td><?php echo $donneAchat['achat'] ?></td>
+						<td><?php echo $donneAchat['quantité'] ?></td>
+						<td><?php echo $donneAchat['prix'] ?></td>
+						<td><?php echo $total = ($donneAchat['quantité']*$donneAchat['prix']) ?></td>
+					</tr>
+
+					<?php $totalGlobal += $total; ?>
+
+					<p>hello histo achat</p>
+
+			<?php } 
+			} ?>
 
 			<tr>
 				<td colspan="3">Total</td>

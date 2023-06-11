@@ -7,6 +7,9 @@ if (isset($_GET['idClient'])) {
 	$id = $_GET['idClient'];
 
 	$executHisto = getHisorique($id);
+	$executInfo = getClientInfo($id);
+
+	$donneInfo = mysqli_fetch_assoc($executInfo);
 }
 
 ?>
@@ -71,7 +74,7 @@ if (isset($_GET['idClient'])) {
 </style>
 <body>
 	<h1>Historique</h1>
-	<h2>Nom user</h2>
+	<h2>de <?php echo $donneInfo['nom'] ?></h2>
 
 	<a href="index.php">Retour</a>
 
@@ -82,8 +85,8 @@ if (isset($_GET['idClient'])) {
 				while($donneHisto = mysqli_fetch_assoc($executHisto))
 				{ ?>
 
-					<li><a href="historique?idHisto=<?php echo $donneHisto["id_historique"] ?>"> <?php echo $donneHisto["designation"]?> </a> </li>
-					
+					<li><a href="achat.php?idClientHisto=<?php echo $donneHisto["id_client"] ?>&idHisto=<?php echo $donneHisto["id_historique"]?>&nbDevis=<?php echo $donneHisto["nb_devis"] ?>"> <?php echo $donneHisto["designation"]?> </a></li>
+
 					<p><?php echo $donneHisto["date"]?></p>
 
 			<?php	}

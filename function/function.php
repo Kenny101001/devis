@@ -24,6 +24,20 @@ function getClient()
     return $execut;
 }
 
+function getClientInfo($id)
+{
+    include("function/connexion.php");
+
+    $sql = "SELECT * FROM `client` where id_client = %d";
+    $sql = sprintf($sql, $id);
+
+    $execut = mysqli_query($bdd, $sql);
+
+    // $donnee = mysqli_fetch_assoc($execut);
+
+    return $execut;
+}
+
 function insertAchat($id, $achat,$quantite,$prix, $nbDevis)
 {
     include("function/connexion.php");
@@ -80,6 +94,33 @@ function insertAchatHisto($id, $achat,$quantite,$prix, $nbDevis)
     return $execut;  
 }
 
+function getAchatHisto($id, $nbDevis)
+{
+    include("function/connexion.php");
+
+    $sql = "SELECT * FROM `AchatHistorique` where id_client = %d AND nb_devis = %d";
+    $sql = sprintf($sql, $id, $nbDevis);
+
+    $execut = mysqli_query($bdd, $sql);
+
+    // $donnee = mysqli_fetch_assoc($execut);
+
+    return $execut;
+}
+
+function insertHistorique($idClient,$designation,$nbDevis)
+{
+    $sql = "INSERT INTO `historique`(`id_client`, `designation`, `nb_devis`) VALUES ( %d,'%s',%d)";
+
+    $sql = sprintf($sql, $id, $designation,$nbDevis);
+
+    $execut = mysqli_query($bdd, $sql);
+
+    // $donnee = mysqli_fetch_assoc($execut);
+
+    return $execut;
+}
+
 function getHisorique($id)
 {
     include("function/connexion.php");
@@ -92,6 +133,22 @@ function getHisorique($id)
     // $donnee = mysqli_fetch_assoc($execut);
 
     return $execut;
+}
+
+function ValidationAchat($idClient,$designation, $nbDevis)
+{
+    include("function/connexion.php");
+
+    $executAchat = getAchat($id);
+
+    while($donneAchat = mysqli_fetch_assoc($executAchat))
+    {
+       insertAchatHisto($donneAchat['id_client'] , $donneAchat['achat'], $donneAchat['quantité'], $donneAchat['prix'], $donneAchat['nb_devis']); 
+    }
+
+    insertHistorique($idClient,$designation,$nbDevis);
+
+    deleteAchat($idClient);
 }
 
 ////////////
