@@ -6,7 +6,7 @@ if (isset($_GET['insert'])) {
 
 	$nbDevis = $_GET['nbDevis'];
 
-	insertAchat($_GET['idClient'],$_GET['achat'],$_GET['quantité'],$_GET['prix'],$nbDevis);
+	insertAchat($_GET['idClient'],$_GET['achat'],$_GET['quantité'],$_GET['prix'],$_GET['tva'],$nbDevis);
 
 }
 

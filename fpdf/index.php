@@ -8,11 +8,13 @@ $nomClient = $_GET['nomClient'];
 
 if (isset($_GET['idClient']) && !isset($_GET['nbDevis'])) {
     $executAchat = getAchatPDF($id);
+
 }
 
 if (isset($_GET['nbDevis'])) {
     $nbDevis = $_GET['nbDevis'];
     $executAchat = getAchatHistoPDF($id,$nbDevis);
+    $executDate = getDateAchat($_GET['idClient'],$_GET['nbDevis']);
 }
 
 class PDF extends FPDF
@@ -86,7 +88,7 @@ function ImprovedTable($header, $data)
 
 }
 $labels = array(
-    'Date de : ',
+    'Date de : '.$executDate,
     'Nom du client : '. $nomClient,
     'Facture n  : ' .$id,
 );

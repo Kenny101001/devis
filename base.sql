@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS `AchatHistorique` (
 `quantité` int(100) not null,
 `prix` int(100) not null,
 `total` int(100) not null,
+`pourcentage_tva` int(100) not null,
 `total_TVA` int(100) not null,
 `nb_devis` int(20) NOT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
@@ -25,6 +26,7 @@ CREATE TABLE IF NOT EXISTS `Achat` (
 `quantité` int(100) not null,
 `prix` int(100) not null,
 `total` int(100) not null,
+`pourcentage_tva` int(100) not null,
 `total_TVA` int(100) not null,
 `nb_devis` int(20) NOT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;

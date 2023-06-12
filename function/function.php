@@ -38,14 +38,14 @@ function getClientInfo($id)
     return $execut;
 }
 
-function insertAchat($id, $achat,$quantite,$prix,$nbDevis)
+function insertAchat($id, $achat,$quantite,$prix,$tva,$nbDevis)
 {
     include("function/connexion.php");
 
-    $prixTva = ($prix+(($prix*20)/100))*$quantite;
+    $prixTva = ($prix+(($prix*$tva)/100))*$quantite;
 
-    $sql = "INSERT INTO `Achat`(`id_client`, `achat`, `quantité`, `prix`, `total`,`total_TVA`,`nb_devis`) VALUES (%d,'%s',%d,%d,%d,%d,%d)";
-    $sql = sprintf($sql, $id, $achat,$quantite,$prix,($quantite*$prix),$prixTva,$nbDevis);
+    $sql = "INSERT INTO `Achat`(`id_client`, `achat`, `quantité`, `prix`, `total`,`pourcentage_tva`,`total_TVA`,`nb_devis`) VALUES (%d,'%s',%d,%d,%d,%d,%d,%d)";
+    $sql = sprintf($sql, $id, $achat,$quantite,$prix,($quantite*$prix),$tva,$prixTva,$nbDevis);
 
     $execut = mysqli_query($bdd, $sql);
 
@@ -95,13 +95,13 @@ function deleteAchat($id)
     return $execut;
 }
 
-function insertAchatHisto($id, $achat,$quantite,$prix, $Totaltva,$nbDevis)
+function insertAchatHisto($id, $achat,$quantite,$prix, $tva,$Totaltva,$nbDevis)
 {
     include("function/connexion.php");
 
-    $sql = "INSERT INTO `AchatHistorique`(`id_client`, `achat`, `quantité`, `prix`, `total`,`total_TVA`,`nb_devis`) VALUES (%d,'%s',%d,%d,%d,%d,%d)";
+    $sql = "INSERT INTO `AchatHistorique`(`id_client`, `achat`, `quantité`, `prix`, `total`,`pourcentage_tva`,`total_TVA`,`nb_devis`) VALUES (%d,'%s',%d,%d,%d,%d,%d,%d)";
 
-    $sql = sprintf($sql, $id, $achat,$quantite,$prix,($quantite*$prix),$Totaltva,$nbDevis);
+    $sql = sprintf($sql, $id, $achat,$quantite,$prix,($quantite*$prix),$tva,$Totaltva,$nbDevis);
 
     $execut = mysqli_query($bdd, $sql);
 
@@ -161,7 +161,7 @@ function ValidationAchat($idClient,$designation, $nbDevis)
 
     while($donneAchat = mysqli_fetch_assoc($executAchat))
     {
-       insertAchatHisto($donneAchat['id_client'] , $donneAchat['achat'], $donneAchat['quantité'], $donneAchat['prix'],$donneAchat['total_TVA'] ,$donneAchat['nb_devis']); 
+       insertAchatHisto($donneAchat['id_client'] , $donneAchat['achat'], $donneAchat['quantité'], $donneAchat['prix'],$donneAchat['pourcentage_tva'],$donneAchat['total_TVA'] ,$donneAchat['nb_devis']); 
     }
 
     insertHistorique($idClient,$designation,$nbDevis);
@@ -190,7 +190,7 @@ function getAchatPDF($id)
 {
     include("../function/connexion.php");
 
-    $sql = "select achat ,quantité ,prix, prix*quantité from achat where id_client = %d";
+    $sql = "select achat ,quantité ,prix, prix*quantité from AchatHistorique where id_client = %d";
     $sql = sprintf($sql, $id);
 
     $execut = mysqli_query($bdd, $sql);
@@ -249,7 +249,7 @@ function sumProduitClient($id)
     include("function/connexion.php");
 
 
-    $sql = "select SUM(prix*quantité) as sum from achat where id_client = %d";
+    $sql = "select SUM(prix*quantité) as sum from AchatHistorique where id_client = %d";
     $sql = sprintf($sql, $id);
 
     $execut = mysqli_query($bdd, $sql);
@@ -259,4 +259,19 @@ function sumProduitClient($id)
     mysqli_free_result($execut);
     return $sum;
 }
+
+function getDateAchat($idClient,$idHisto)
+{
+    include("../function/connexion.php");
+
+    $sql = "SELECT `date` FROM `historique` where id_client = %d and nb_devis = %d";
+    $sql = sprintf($sql, $idClient, $idHisto);
+
+    $execut = mysqli_query($bdd, $sql);
+
+    $donnee = mysqli_fetch_assoc($execut);
+
+    return $donnee;
+}
+
 ?>

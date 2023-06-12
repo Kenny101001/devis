@@ -23,6 +23,8 @@ $donneInfo = mysqli_fetch_assoc($executInfo);
 
 $totalGlobal = 0;
 
+$tva = 20;
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -199,6 +201,7 @@ $totalGlobal = 0;
 				<input type="hidden" name="idClient" value="<?php echo $id ?>">
 				<input type="hidden" name="nbDevis" value="<?php echo $donneInfo['nb_devis'] ?>">
 				<input type="submit" name="insert">
+				<input type="hidden" name="tva" value="<?php echo $tva ?>">
 			</form>
 		</div>
 	<?php }
@@ -209,9 +212,6 @@ $totalGlobal = 0;
 	<br>
 
 	<?php
-	if (isset($_GET['idClient'])) { ?>
-		<a href="fpdf/index.php?idClient=<?php echo $id; ?>&nomClient=<?php echo $nomClient; ?>&sum=<?php echo $sommetotale; ?>">Télécharger PDF</a>
-	<?php }
 
 	if (isset($_GET['idClientHisto'])) { ?>
 		<a href="fpdf/index.php?idClient=<?php echo $id; ?>&nbDevis=<?php echo $nbDevis?>&nomClient=<?php echo $nomClient; ?>&sum=<?php echo $sommetotale; ?>">Télécharger PDF</a>
@@ -227,6 +227,7 @@ $totalGlobal = 0;
 				<th>Quantité</th>
 				<th>Prix</th>
 				<th>Total</th>
+				<th>Pourcentage TVA</th>
 				<th>TVA</th>
 			</tr>
 
@@ -238,6 +239,7 @@ $totalGlobal = 0;
 						<td><?php echo $donneAchat['quantité'] ?></td>
 						<td><?php echo $donneAchat['prix'] ?></td>
 						<td><?php echo $total = ($donneAchat['quantité']*$donneAchat['prix']) ?></td>
+						<td><?php echo $donneAchat['pourcentage_tva'] ?> %</td>
 						<td><?php echo $donneAchat['total_TVA'] ?></td>
 					</tr>
 
@@ -276,6 +278,7 @@ $totalGlobal = 0;
 						<td><?php echo $donneAchat['quantité'] ?></td>
 						<td><?php echo $donneAchat['prix'] ?></td>
 						<td><?php echo $total = ($donneAchat['quantité']*$donneAchat['prix']) ?></td>
+						<td><?php echo $donneAchat['pourcentage_tva'] ?> %</td>
 						<td><?php echo $donneAchat['total_TVA'] ?></td>
 					</tr>
 
@@ -286,7 +289,7 @@ $totalGlobal = 0;
 
 
 			<tr>
-				<td colspan="4">Total</td>
+				<td colspan="5">Total</td>
 				<td><?php echo $totalGlobal; ?></td>
 			</tr>
 		</table>
