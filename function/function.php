@@ -128,7 +128,7 @@ function insertHistorique($idClient,$designation,$nbDevis)
 {
     include("function/connexion.php");
 
-    $sql = "INSERT INTO `historique` VALUES ( %d,'%s',%d,NOW())";
+    $sql = "INSERT INTO `historique`  (`id_client`, `designation`, `nb_devis`) VALUES (%d,'%s',%d)";
 
     $sql = sprintf($sql, $idClient, $designation,$nbDevis);
 
@@ -276,6 +276,19 @@ function getDateAchat($idClient,$idHisto)
     $donnee = mysqli_fetch_assoc($execut);
 
     return $donnee['date'];
+}
+
+function getTotalMois($idClient)
+{
+    include("function/connexion.php");
+
+    $sql = "SELECT * from V_prixTotal_mois where id_client = %d";
+
+    $sql = sprintf($sql, $idClient);
+
+    $execut = mysqli_query($bdd, $sql);
+
+    return $execut;
 }
 
 ?>

@@ -10,6 +10,8 @@ if (isset($_GET['idClient'])) {
 	$executInfo = getClientInfo($id);
 
 	$donneInfo = mysqli_fetch_assoc($executInfo);
+
+	$executTotalMois = getTotalMois($_GET['idClient']);
 }
 
 $prixTotalDevis = 0;
@@ -113,6 +115,9 @@ $prixTotalDevisGlobal = 0;
 		</ul>
 		<div>
 			<ul>
+				<?php while($donneTotalMois = mysqli_fetch_assoc($executTotalMois)) { ?>
+					<li><?php echo $donneTotalMois['mois'] ?> : <?php echo $donneTotalMois['total'] ?></li>
+				<?php }?>
 				<li><p style="font-weight: bold";>total de tout les achats : <?php echo $prixTotalDevisGlobal ?></p></li>
 			</ul>
 		</div>
