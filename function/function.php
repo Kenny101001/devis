@@ -221,14 +221,17 @@ function getAchatHistoPDF($id, $nbDevis)
 {
     include("../function/connexion.php");
 
-    $sql = "SELECT * FROM `AchatHistorique` where id_client = %d AND nb_devis = %d";
+    $sql = "SELECT achat ,quantité ,prix, (prix*quantité) as total, pourcentage_tva,total_TVA FROM `AchatHistorique` where id_client = %d AND nb_devis = %d";
     $sql = sprintf($sql, $id, $nbDevis);
 
     $execut = mysqli_query($bdd, $sql);
 
-    $donnee = mysqli_fetch_assoc($execut);
-
-    return $donnee;
+    $result = array();
+    while ($data = mysqli_fetch_array($execut)) {
+        $result[] = $data;
+    }
+    mysqli_free_result($execut);
+    return $result;
 }
 
 function getPrixmois()
@@ -245,13 +248,13 @@ function getPrixmois()
 
 }
 
-function sumProduitClient($id)
+function sumProduitClient($id,$nbDevis)
 {
     include("function/connexion.php");
 
-    $sql = "select SUM(prix*quantité) as sum from AchatHistorique where id_client = %d";
+    $sql = "select SUM(total_TVA) as sum from AchatHistorique where id_client = %d and nb_devis = %d";
 
-    $sql = sprintf($sql, $id);
+    $sql = sprintf($sql, $id,$nbDevis);
 
     $execut = mysqli_query($bdd, $sql);
     while ($data = mysqli_fetch_assoc($execut)) {
@@ -272,7 +275,7 @@ function getDateAchat($idClient,$idHisto)
 
     $donnee = mysqli_fetch_assoc($execut);
 
-    return $donnee;
+    return $donnee['date'];
 }
 
 ?>

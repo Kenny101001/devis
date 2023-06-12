@@ -206,7 +206,7 @@ $tva = 20;
 		</div>
 	<?php }
 	?>
-	<?php $sommetotale=sumProduitClient($id); ?>
+	<?php $sommetotale=sumProduitClient($id,$nbDevis); ?>
 	<a href="index.php">Retour</a>
 	<br>
 	<br>
@@ -214,7 +214,7 @@ $tva = 20;
 	<?php
 
 	if (isset($_GET['idClientHisto'])) { ?>
-		<a href="fpdf/index.php?idClient=<?php echo $id; ?>&nbDevis=<?php echo $nbDevis?>&nomClient=<?php echo $nomClient; ?>&sum=<?php echo $sommetotale; ?>">Télécharger PDF</a>
+		<a href="fpdf/index.php?idClient=<?php echo $id; ?>&nbDevis=<?php echo $nbDevis?>&nomClient=<?php echo $nomClient; ?>&sum=<?php echo $sommetotale; ?>&idHisto=<?php echo $_GET['idHisto']; ?>">Télécharger PDF</a>
 	<?php } ?>
 	
 
@@ -287,9 +287,8 @@ $tva = 20;
 			<?php } 
 			} ?>
 
-
 			<tr>
-				<td colspan="5">Total</td>
+				<td colspan="5">Total TTC</td>
 				<td><?php echo $totalGlobal; ?></td>
 			</tr>
 		</table>
