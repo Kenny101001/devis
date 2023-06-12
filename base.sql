@@ -37,10 +37,15 @@ CREATE TABLE IF NOT EXISTS `historique` (
 `designation` varchar(100) not null,
 `nb_devis` int(20) NOT NULL
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+ALTER TABLE historique
+ADD COLUMN `date` DATE ;
 
-CREATE or replace view `V_totalClient` as (
-SELECT AchatHistorique.id_client , sum(prix*quantité) as total
-    FROM `AchatHistorique` GROUP by id_client;
+
+
+
+CREATE or replace view V_totalClient as (
+SELECT id_client , sum(prix*quantité) as totalQ
+    FROM AchatHistorique GROUP by id_client;
 )
 
 CREATE or REPLACE view `V_prixTotal_mois` as ( 
