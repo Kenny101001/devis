@@ -75,6 +75,7 @@ function ImprovedTable($header, $data)
         $this->Cell($w[1],10,$row[1]);
         $this->Cell($w[2],10,$row[2]);
         $this->Cell($w[3],10,$row[3]);
+        $this->Cell($w[4],10,$row[4]);
         $this->Ln();
         
     }
@@ -104,7 +105,7 @@ foreach ($labels as $label) {
 }
 $pdf->Ln(10);
 
-$header = array('Achat', 'Quantite', 'Prix', 'Total');
+$header = array('Achat', 'Quantite', 'Prix', 'Total','Total TVA');
 // Chargement des données
 $pdf->LoadData($data);
 $pdf->SetFont('Times','',12);

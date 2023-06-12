@@ -227,7 +227,7 @@ $totalGlobal = 0;
 				<th>Quantité</th>
 				<th>Prix</th>
 				<th>Total</th>
-				<th>TVA</th>
+				<th>Total TVA</th>
 			</tr>
 
 			<?php 
@@ -286,7 +286,7 @@ $totalGlobal = 0;
 
 
 			<tr>
-				<td colspan="4">Total</td>
+				<td colspan="4">Somme Total</td>
 				<td><?php echo $totalGlobal; ?></td>
 			</tr>
 		</table>

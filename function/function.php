@@ -128,7 +128,7 @@ function insertHistorique($idClient,$designation,$nbDevis)
 {
     include("function/connexion.php");
 
-    $sql = "INSERT INTO `historique`(`id_client`, `designation`, `nb_devis`) VALUES ( %d,'%s',%d)";
+    $sql = "INSERT INTO `historique` VALUES ( %d,'%s',%d,NOW())";
 
     $sql = sprintf($sql, $idClient, $designation,$nbDevis);
 
@@ -190,7 +190,7 @@ function getAchatPDF($id)
 {
     include("../function/connexion.php");
 
-    $sql = "select achat ,quantité ,prix, prix*quantité from achat where id_client = %d";
+    $sql = "select achat ,quantité ,prix, prix*quantité,total_TVA from achat where id_client = %d";
     $sql = sprintf($sql, $id);
 
     $execut = mysqli_query($bdd, $sql);
@@ -249,7 +249,7 @@ function sumProduitClient($id)
     include("function/connexion.php");
 
 
-    $sql = "select SUM(prix*quantité) as sum from achat where id_client = %d";
+    $sql = "select SUM(total_TVA*quantité) as sum from achat where id_client = %d";
     $sql = sprintf($sql, $id);
 
     $execut = mysqli_query($bdd, $sql);
