@@ -206,13 +206,11 @@ $tva = 20;
 		</div>
 	<?php }
 	?>
-	<?php 
-	if (isset($_GET['idClientHisto'])) {
-	
-	 $sommetotale=sumProduitClient($id,$nbDevis); 
 
-	} ?>
-	
+	<?php if (isset($_GET['idClientHisto'])) { ?>
+	<?php $sommetotale=sumProduitClient($id,$nbDevis); ?>
+	<?php } ?>
+
 	<a href="index.php">Retour</a>
 	<br>
 	<br>
