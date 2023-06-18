@@ -103,7 +103,7 @@ foreach ($labels as $label) {
 }
 $pdf->Ln(10);
 
-$header = array('Achat', 'Quantite', 'Prix', 'Total','% TVA','Total TVA');
+$header = array('Achat', 'Quantite', 'Prix Unitaire', 'Total','% TVA','Total TVA');
 // Chargement des données
 $pdf->LoadData($data);
 $pdf->SetFont('Times','',12);
