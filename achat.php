@@ -263,6 +263,7 @@ $tva = 20;
 			<?php } ?>
 
 			<br>
+			
 			<form action="insertHistoAchat.php" method="GET">
 			<input type="text" name="nom" placeholder="Nom de l'achat" required>
 			<input type="hidden" name="idClient" value="<?php echo $donneInfo['id_client'] ?>">
