@@ -43,8 +43,8 @@ ADD COLUMN `date` DATE ;
 
 
 CREATE OR REPLACE VIEW V_totalClient AS
-SELECT id_client, SUM(total_TVA) AS total
-FROM AchatHistorique
+SELECT AchatHistorique.id_client,client.nom, SUM(total_TVA) AS total
+FROM AchatHistorique join client on client.id_client = AchatHistorique.id_client
 GROUP BY id_client;
 
 
@@ -56,7 +56,7 @@ SELECT v_totalclient.`id_client` ,v_totalclient.`total` FROM `v_totalclient`
 join historique on v_totalclient.id_client = historique.id_client where MonthName='June'
 
 
-SELECT v_totalclient.id_client,MonthName(historique.date) AS mois, v_totalclient.total
+SELECT v_totalclient.id_client,nom,MonthName(historique.date) AS mois, v_totalclient.total
 FROM v_totalclient
 JOIN historique ON v_totalclient.id_client = historique.id_client
-WHERE MonthName(historique.date) = 'june';
+WHERE MonthName(historique.date) = 'June';

@@ -102,7 +102,22 @@ a {
 a:hover {
   text-decoration: underline;
 }
+select {
+        padding: 8px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        outline: none;
+}
 
+select:hover {
+    border-color: #888;
+}
+
+select:focus {
+    border-color: #555;
+    box-shadow: 0 0 5px rgba(85, 85, 85, 0.3);
+}
 
 </style>
 <body>
@@ -139,6 +154,28 @@ a:hover {
        ?>
       
       
+    </div>
+    <h1>Historique par mois</h1>
+    <div>
+      <form action="historiqueMois.php" method="post">
+        <h4>Choississez un mois</h4>
+        <select name="mois" id="">
+          <option value="January">Janvier</option>
+          <option value="February">Fevrier</option>
+          <option value="March">Mars</option>
+          <option value="April">Avril</option>
+          <option value="May">Mai</option>
+          <option value="June">Juin</option>
+          <option value="July">Juillet</option>
+          <option value="August">Aout</option>
+          <option value="September">Septembre</option>
+          <option value="October">Octobre</option>
+          <option value="November">Novembre</option>
+          <option value="December">Decembre</option>
+        </select>
+        <input type="submit" name="">
+
+      </form>
     </div>
   </section>
 
