@@ -61,8 +61,6 @@ FROM v_totalclient
 JOIN historique ON v_totalclient.id_client = historique.id_client
 WHERE MonthName(historique.date) = 'June';
 
-
-
 //////////////
 
 create or REPLACE VIEW dateClient as
