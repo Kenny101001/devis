@@ -60,3 +60,12 @@ SELECT v_totalclient.id_client,nom,MonthName(historique.date) AS mois, v_totalcl
 FROM v_totalclient
 JOIN historique ON v_totalclient.id_client = historique.id_client
 WHERE MonthName(historique.date) = 'June';
+
+
+
+//////////////
+
+create or REPLACE VIEW dateClient as
+SELECT DISTINCT(historique.id_client),client.nom, historique.date
+FROM AchatHistorique join client on client.id_client = AchatHistorique.id_client 
+join historique on historique.id_client = AchatHistorique.id_client;
