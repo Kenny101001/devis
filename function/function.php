@@ -295,7 +295,7 @@ function getHistoMois($mois)
 {
     include("function/connexion.php");
 
-    $sql = "SELECT v_totalclient.id_client,nom,MonthName(historique.date) AS mois, v_totalclient.total FROM v_totalclient JOIN historique ON v_totalclient.id_client = historique.id_client WHERE MonthName(historique.date) = '%s'";
+    $sql = "SELECT DISTINCT v_totalclient.id_client, nom, MonthName(historique.date) AS mois, v_totalclient.total FROM v_totalclient JOIN historique ON v_totalclient.id_client = historique.id_client WHERE MonthName(historique.date) = '%s' ORDER BY v_totalclient.id_client ";
     $sql = sprintf($sql, $mois);
 
     $execut = mysqli_query($bdd, $sql);

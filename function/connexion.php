@@ -10,7 +10,7 @@
 
 $host = 'localhost'; // Nom d'hôte
 $user = 'root'; // Nom d'utilisateur de la base de données
-$password = ''; // Mot de passe de la base de données (par défaut, vide pour XAMPP)
+$password = 'root'; // Mot de passe de la base de données (par défaut, vide pour XAMPP)
 $database = 'devis'; // Nom de la base de données
 
 // Établir une connexion à la base de données
