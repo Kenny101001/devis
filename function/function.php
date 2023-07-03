@@ -124,13 +124,14 @@ function getAchatHisto($id, $nbDevis)
     return $execut;
 }
 
-function insertHistorique($idClient,$designation,$nbDevis)
+function insertHistorique($idClient,$designation,$nbDevis, $date)
 {
     include("function/connexion.php");
 
-    $sql = "INSERT INTO `historique`  (`id_client`, `designation`, `nb_devis`) VALUES (%d,'%s',%d)";
+    // $sql = "INSERT INTO `historique`  (`id_client`, `designation`, `nb_devis`, `date`) VALUES (%d,'%s',%d,now())";
+    $sql = "INSERT INTO `historique`  (`id_client`, `designation`, `nb_devis`, `date`) VALUES (%d,'%s',%d,'%s')";
 
-    $sql = sprintf($sql, $idClient, $designation,$nbDevis);
+    $sql = sprintf($sql, $idClient, $designation,$nbDevis, $date);
 
     $execut = mysqli_query($bdd, $sql);
 
@@ -153,7 +154,7 @@ function getHisorique($id)
     return $execut;
 }
 
-function ValidationAchat($idClient,$designation, $nbDevis)
+function ValidationAchat($idClient,$designation, $nbDevis, $date)
 {
     include("function/connexion.php");
 
@@ -164,7 +165,7 @@ function ValidationAchat($idClient,$designation, $nbDevis)
        insertAchatHisto($donneAchat['id_client'] , $donneAchat['achat'], $donneAchat['quantité'], $donneAchat['prix'],$donneAchat['pourcentage_tva'],$donneAchat['total_TVA'] ,$donneAchat['nb_devis']); 
     }
 
-    insertHistorique($idClient,$designation,$nbDevis);
+    insertHistorique($idClient,$designation,$nbDevis, $date);
 
     $nbDevis += 1;
     updateNbDevis($idClient,$nbDevis);

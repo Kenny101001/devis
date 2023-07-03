@@ -71,6 +71,7 @@ $tva = 20;
 
 		input[type="text"],
 		input[type="number"],
+		input[type="date"],
 		select {
 			width: 100%;
 			padding: 8px;
@@ -265,10 +266,12 @@ $tva = 20;
 			<br>
 			
 			<form action="insertHistoAchat.php" method="GET">
-			<input type="text" name="nom" placeholder="Nom de l'achat" required>
-			<input type="hidden" name="idClient" value="<?php echo $donneInfo['id_client'] ?>">
-			<input type="hidden" name="nbDevis" value="<?php echo $donneInfo['nb_devis'] ?>">
-			<input type="submit" name="validerAchat" value="Valider l'achat">
+				<label>Date</label>
+				<p><input type="date" name="date" style="width: 300px;"></p>
+				<p><input type="text" name="nom" placeholder="Nom de l'achat" style="width: 300px;" required></p>
+				<input type="hidden" name="idClient" value="<?php echo $donneInfo['id_client'] ?>">
+				<input type="hidden" name="nbDevis" value="<?php echo $donneInfo['nb_devis'] ?>">
+				<p><input type="submit" name="validerAchat" value="Valider l'achat"></p><br>
 			</form>
 
 			<?php } ?>

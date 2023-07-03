@@ -1,8 +1,8 @@
 <?php 
-include("function/connexion.php");
-include("function/function.php");
-$mois=$_POST['mois'];
-$valiny=getHistoMois($mois);
+	include("function/connexion.php");
+	include("function/function.php");
+	$mois=$_POST['mois'];
+	$valiny=getHistoMois($mois);
 ?>
 <!DOCTYPE html>
 <html lang="en">

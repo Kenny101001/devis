@@ -7,8 +7,9 @@ if (isset($_GET['validerAchat'])) {
 	$idClient = $_GET['idClient'];
 	$nbDevis = $_GET['nbDevis'];
 	$nom = $_GET['nom'];
+	$date = $_GET['date'];
 
-	ValidationAchat($idClient, $nom, $nbDevis);
+	ValidationAchat($idClient, $nom, $nbDevis, $date);
 
 }
 
